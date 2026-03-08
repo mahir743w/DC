@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Courses | Dutta Computer Education – Karjan</title>
+  <meta name="description" content="Explore all computer courses at Dutta Computer Education – DCA, PGDCA, ADCA, TallyPrime, Web Designing, AutoCAD, and more. Karjan, Gujarat."/>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* PAGE HERO */
+    .courses-hero {
+      padding: 10rem 2.5rem 5rem;
+      background: linear-gradient(135deg, var(--dark) 0%, #1e3a6e 100%);
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .courses-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .courses-hero .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(251,188,4,0.15); border: 1px solid rgba(251,188,4,0.5);
+      color: var(--accent); padding: 0.4rem 1.1rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; margin-bottom: 1.2rem;
+    }
+    .courses-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+    .courses-hero h1 span { color: var(--accent); }
+    .courses-hero p { color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; line-height: 1.8; font-size: 1rem; }
+    .hero-stats-row { display: flex; justify-content: center; gap: 3rem; margin-top: 3rem; flex-wrap: wrap; }
+    .hero-stat span { font-size: 2rem; font-weight: 800; color: var(--accent); display: block; }
+    .hero-stat p { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+    /* INSTITUTE HIGHLIGHTS BAR */
+    .highlights-bar {
+      background: var(--primary);
+      padding: 1.5rem 1.5rem;
+    }
+    .highlights-bar .container {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
+    }
+    .hl-pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      padding: 0.5rem 1.1rem;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .hl-pill i { color: var(--accent); font-size: 0.9rem; }
+
+    /* COURSES SECTION */
+    .all-courses-section { padding: 4.5rem 1.5rem 5rem; background: var(--light); }
+
+    /* ACCORDION CARD */
+    .acc-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.2rem;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+      border-left: 5px solid var(--primary);
+    }
+    .acc-card:hover { box-shadow: var(--shadow-hover); }
+
+    /* CARD HEADER */
+    .acc-header {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      padding: 1.5rem 2rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .acc-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .acc-icon i { font-size: 1.4rem; }
+    .acc-title { flex-grow: 1; }
+    .acc-title h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .acc-meta { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .acc-meta span { font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 0.35rem; color: var(--muted); }
+    .acc-meta i { color: var(--accent); }
+    .acc-badge {
+      background: rgba(26,115,232,0.1); color: var(--primary);
+      padding: 0.35rem 1rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 700; white-space: nowrap; flex-shrink: 0;
+    }
+    .acc-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--light); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.3s;
+    }
+    .acc-toggle i { transition: transform 0.35s; color: var(--primary); }
+    .acc-card.open .acc-toggle { background: var(--primary); }
+    .acc-card.open .acc-toggle i { transform: rotate(180deg); color: #fff; }
+
+    /* CARD BODY */
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .acc-body-inner { padding: 0 2rem 2rem; border-top: 1px solid #f0f4ff; }
+
+    /* BODY GRID */
+    .acc-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+    .acc-col h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 0.9rem; }
+    .syllabus-list { list-style: none; }
+    .syllabus-list li { font-size: 0.87rem; color: var(--text); margin-bottom: 0.55rem; display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5; }
+    .syllabus-list li i { color: #34a853; font-size: 0.62rem; margin-top: 0.38rem; flex-shrink: 0; }
+
+    /* HIGHLIGHT PILLS */
+    .acc-highlights { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem; }
+    .highlight-pill {
+      background: #f0f4ff; color: var(--primary);
+      font-size: 0.74rem; font-weight: 600;
+      padding: 0.3rem 0.85rem; border-radius: 50px;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .highlight-pill.green { background: #e6f4ea; color: #2e7d32; }
+    .highlight-pill.yellow { background: #fff8e1; color: #b8860b; }
+
+    /* CTA ROW */
+    .acc-cta { margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; border-top: 1px solid #f0f4ff; padding-top: 1.2rem; }
+    .cert-tag { background: #e6f4ea; color: #2e7d32; font-size: 0.78rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 0.4rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .courses-hero h1 { font-size: 2.1rem; }
+      .hero-stats-row { gap: 1.5rem; }
+      .acc-header { padding: 1.1rem; gap: 0.9rem; }
+      .acc-body-inner { padding: 0 1rem 1.5rem; }
+      .acc-body-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .acc-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo.jpg" alt="DCE Logo" class="brand-logo">
+      <span>Dutta Computer Education</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="courses.html" style="color:#fff; background:rgba(255,255,255,0.12); border-radius:8px;">Courses</a></li>
+      <li><a href="index.html#timing">Timing</a></li>
+      <li><a href="index.html#reviews">Reviews</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="https://wa.me/919924733327" target="_blank" class="nav-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="courses-hero">
+    <div class="container" style="position:relative; z-index:1;">
+      <div class="hero-badge"><i class="fas fa-award"></i> GSVT & ITCT Approved – Govt. of India</div>
+      <h1>All <span>Computer Courses</span><br>at Dutta Education</h1>
+      <p>Click any course to see its full syllabus, exact hours and what you will learn — then enquire on WhatsApp instantly.</p>
+      <div class="hero-stats-row">
+        <div class="hero-stat"><span>10+</span><p>Courses Offered</p></div>
+        <div class="hero-stat"><span>500+</span><p>Students Trained</p></div>
+        <div class="hero-stat"><span>20+</span><p>Years Experience</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTITUTE HIGHLIGHTS BAR -->
+  <div class="highlights-bar">
+    <div class="container">
+      <div class="hl-pill"><i class="fas fa-check-circle"></i> Govt. Recognized Certificates & Marksheet</div>
+      <div class="hl-pill"><i class="fas fa-rupee-sign"></i> Affordable Courses with Easy Installments</div>
+      <div class="hl-pill"><i class="fas fa-chalkboard-teacher"></i> Personal Teaching & Experienced Faculty</div>
+      <div class="hl-pill"><i class="fas fa-wifi"></i> Online & Offline Exams</div>
+      <div class="hl-pill"><i class="fas fa-qrcode"></i> Online Verification Certificate</div>
+    </div>
+  </div>
+
+  <!-- ALL COURSES (ACCORDION) -->
+  <section class="all-courses-section">
+    <div class="container">
+
+      <!-- 1. PGDCA -->
+      <div class="acc-card" id="card-pgdca" style="border-left-color:#1a73e8;">
+        <div class="acc-header" onclick="toggleCard('card-pgdca')">
+          <div class="acc-icon" style="background:#e8f0fe;"><i class="fas fa-user-graduate" style="color:#1a73e8;"></i></div>
+          <div class="acc-title">
+            <h3>PGDCA – Post Graduate Diploma in Computer Application</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 12 Months · 2 Semesters</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Semester I</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Operating System</li>
+                  <li><i class="fas fa-circle"></i> Accounting Package (TallyPrime)</li>
+                  <li><i class="fas fa-circle"></i> Photoshop</li>
+                  <li><i class="fas fa-circle"></i> Coral Draw</li>
+                  <li><i class="fas fa-circle"></i> Internet</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Semester II</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> HTML, DHTML</li>
+                  <li><i class="fas fa-circle"></i> C/C++ Programming</li>
+                  <li><i class="fas fa-circle"></i> JavaScript</li>
+                  <li><i class="fas fa-circle"></i> VBScript</li>
+                  <li><i class="fas fa-circle"></i> PHP, MySQL, Ajax</li>
+                  <li><i class="fas fa-circle"></i> Project Works</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in PGDCA course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. ADCA -->
+      <div class="acc-card" id="card-adca" style="border-left-color:#fbbc04;">
+        <div class="acc-header" onclick="toggleCard('card-adca')">
+          <div class="acc-icon" style="background:#fef7e0;"><i class="fas fa-laptop" style="color:#fbbc04;"></i></div>
+          <div class="acc-title">
+            <h3>ADCA – Advance Diploma in Computer Application</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 12 Months · 2 Semesters</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Semester I</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to OS &amp; Shortcuts</li>
+                  <li><i class="fas fa-circle"></i> Gujarati &amp; English Typing</li>
+                  <li><i class="fas fa-circle"></i> Office (Word, Advance Excel, PowerPoint)</li>
+                  <li><i class="fas fa-circle"></i> Accounting Package Inventory</li>
+                  <li><i class="fas fa-circle"></i> Tax Deducted at Source (TDS)</li>
+                  <li><i class="fas fa-circle"></i> Goods &amp; Service Tax (GST)</li>
+                  <li><i class="fas fa-circle"></i> Dealer Excise, TCS, Payroll</li>
+                  <li><i class="fas fa-circle"></i> Important Features in TallyPrime</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Semester II</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> C Programming</li>
+                  <li><i class="fas fa-circle"></i> C++ Programming</li>
+                  <li><i class="fas fa-circle"></i> HTML</li>
+                  <li><i class="fas fa-circle"></i> JavaScript</li>
+                  <li><i class="fas fa-circle"></i> PHP</li>
+                  <li><i class="fas fa-circle"></i> MySQL</li>
+                  <li><i class="fas fa-circle"></i> Project Works</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in ADCA course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. DCA -->
+      <div class="acc-card" id="card-dca" style="border-left-color:#1a73e8;">
+        <div class="acc-header" onclick="toggleCard('card-dca')">
+          <div class="acc-icon" style="background:#e8f0fe;"><i class="fas fa-desktop" style="color:#1a73e8;"></i></div>
+          <div class="acc-title">
+            <h3>DCA – Diploma in Computer Application</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 6 Months</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Foundation Topics</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Operating System</li>
+                  <li><i class="fas fa-circle"></i> Gujarati &amp; English Typing</li>
+                  <li><i class="fas fa-circle"></i> Office (Word, Excel, PowerPoint)</li>
+                  <li><i class="fas fa-circle"></i> TallyPrime + GST</li>
+                  <li><i class="fas fa-circle"></i> TDS, TCS Interest Calculation</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Advanced Topics</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Price List, Payroll</li>
+                  <li><i class="fas fa-circle"></i> Photoshop</li>
+                  <li><i class="fas fa-circle"></i> Corel Draw</li>
+                  <li><i class="fas fa-circle"></i> Basic Concept of Hardware Maintenance</li>
+                  <li><i class="fas fa-circle"></i> Internet</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in DCA course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. CCC + Tally GST -->
+      <div class="acc-card" id="card-ccc-tally" style="border-left-color:#34a853;">
+        <div class="acc-header" onclick="toggleCard('card-ccc-tally')">
+          <div class="acc-icon" style="background:#e6f4ea;"><i class="fas fa-file-invoice-dollar" style="color:#34a853;"></i></div>
+          <div class="acc-title">
+            <h3>CCC + Tally GST</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 6 Months</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Office &amp; Basics</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to OS &amp; Shortcuts</li>
+                  <li><i class="fas fa-circle"></i> Gujarati &amp; English Typing</li>
+                  <li><i class="fas fa-circle"></i> Office (Word, Advance Excel, PowerPoint)</li>
+                  <li><i class="fas fa-circle"></i> Accounting Package Inventory</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Tally &amp; Taxation</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Tax Deducted at Source (TDS)</li>
+                  <li><i class="fas fa-circle"></i> Goods &amp; Service Tax (GST)</li>
+                  <li><i class="fas fa-circle"></i> Dealer Excise</li>
+                  <li><i class="fas fa-circle"></i> TCS, Payroll, Price List</li>
+                  <li><i class="fas fa-circle"></i> Interest Calculation</li>
+                  <li><i class="fas fa-circle"></i> Important Features in TallyPrime</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-briefcase"></i> 100% Placement Assistance</span>
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in CCC+Tally GST course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Web Designing -->
+      <div class="acc-card" id="card-web" style="border-left-color:#ea4335;">
+        <div class="acc-header" onclick="toggleCard('card-web')">
+          <div class="acc-icon" style="background:#fce8e6;"><i class="fas fa-globe" style="color:#ea4335;"></i></div>
+          <div class="acc-title">
+            <h3>Diploma in Web Designing</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 6 Months</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Foundation &amp; Frontend</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Operating System</li>
+                  <li><i class="fas fa-circle"></i> HTML, CSS</li>
+                  <li><i class="fas fa-circle"></i> JavaScript</li>
+                  <li><i class="fas fa-circle"></i> Bootstrap</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Backend &amp; Projects</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> PHP</li>
+                  <li><i class="fas fa-circle"></i> MySQL</li>
+                  <li><i class="fas fa-circle"></i> Ajax</li>
+                  <li><i class="fas fa-circle"></i> Real-World Project Works</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in Web Designing course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. TallyPrime with GST -->
+      <div class="acc-card" id="card-tally" style="border-left-color:#1a73e8;">
+        <div class="acc-header" onclick="toggleCard('card-tally')">
+          <div class="acc-icon" style="background:#e8f0fe;"><i class="fas fa-calculator" style="color:#1a73e8;"></i></div>
+          <div class="acc-title">
+            <h3>TallyPrime with GST</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 3 Months · 90 Hours</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Core Accounting</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Basics of Accounting</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Tally</li>
+                  <li><i class="fas fa-circle"></i> Creation &amp; Customization of Company</li>
+                  <li><i class="fas fa-circle"></i> Accounting Master &amp; Inventory Control</li>
+                  <li><i class="fas fa-circle"></i> Voucher Entry</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Taxation &amp; Reports</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> TDS, TCS Interest Calculation</li>
+                  <li><i class="fas fa-circle"></i> Price List, GST</li>
+                  <li><i class="fas fa-circle"></i> Financial &amp; Trading Reports</li>
+                  <li><i class="fas fa-circle"></i> Manufacturing &amp; MIS Reporting</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill"><i class="fas fa-star"></i> Best Knowledge of Accounting</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in TallyPrime with GST course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. AutoCAD -->
+      <div class="acc-card" id="card-cad" style="border-left-color:#9c27b0;">
+        <div class="acc-header" onclick="toggleCard('card-cad')">
+          <div class="acc-icon" style="background:#f3e5f5;"><i class="fas fa-drafting-compass" style="color:#9c27b0;"></i></div>
+          <div class="acc-title">
+            <h3>Certificate Course in AutoCAD</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 3 Months · 90 Hours</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Syllabus</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Introduction to CAD</li>
+                  <li><i class="fas fa-circle"></i> Draw and Modify Commands</li>
+                  <li><i class="fas fa-circle"></i> Text Command, Layers, Blocks</li>
+                  <li><i class="fas fa-circle"></i> Isometric Views</li>
+                  <li><i class="fas fa-circle"></i> Introduction to 3D Interface</li>
+                  <li><i class="fas fa-circle"></i> Project Work</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Who Is This For?</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Civil Engineers &amp; Architects</li>
+                  <li><i class="fas fa-circle"></i> Mechanical / Electrical Designers</li>
+                  <li><i class="fas fa-circle"></i> Anyone in Construction or Technical Drawing</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in AutoCAD course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Graphic Design (DTP) -->
+      <div class="acc-card" id="card-dtp" style="border-left-color:#ea4335;">
+        <div class="acc-header" onclick="toggleCard('card-dtp')">
+          <div class="acc-icon" style="background:#fce8e6;"><i class="fas fa-paint-brush" style="color:#ea4335;"></i></div>
+          <div class="acc-title">
+            <h3>Certificate in Graphic Design (DTP)</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 3 Months · 90 Hours</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Syllabus</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Operating System</li>
+                  <li><i class="fas fa-circle"></i> Gujarati &amp; English Typing</li>
+                  <li><i class="fas fa-circle"></i> Photoshop</li>
+                  <li><i class="fas fa-circle"></i> Corel Draw</li>
+                  <li><i class="fas fa-circle"></i> Internet</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Design Projects</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Logo Design</li>
+                  <li><i class="fas fa-circle"></i> Visiting Card Design</li>
+                  <li><i class="fas fa-circle"></i> Banner Design</li>
+                  <li><i class="fas fa-circle"></i> General Print Layouts</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in Graphic Design DTP course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Certificate in Office -->
+      <div class="acc-card" id="card-office" style="border-left-color:#34a853;">
+        <div class="acc-header" onclick="toggleCard('card-office')">
+          <div class="acc-icon" style="background:#e6f4ea;"><i class="fas fa-window-restore" style="color:#34a853;"></i></div>
+          <div class="acc-title">
+            <h3>Certificate in Office</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 3 Months · 90 Hours</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Syllabus</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Operating System</li>
+                  <li><i class="fas fa-circle"></i> Gujarati &amp; English Typing</li>
+                  <li><i class="fas fa-circle"></i> MS Word</li>
+                  <li><i class="fas fa-circle"></i> MS Excel</li>
+                  <li><i class="fas fa-circle"></i> MS PowerPoint</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Internet &amp; Multimedia</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Ideal For</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Office Staff &amp; Data Entry Operators</li>
+                  <li><i class="fas fa-circle"></i> Students Wanting Basic Computer Skills</li>
+                  <li><i class="fas fa-circle"></i> Government Job Applicants</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-certificate"></i> Certificate Provided</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in Certificate in Office course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. CCC -->
+      <div class="acc-card" id="card-ccc" style="border-left-color:#fbbc04;">
+        <div class="acc-header" onclick="toggleCard('card-ccc')">
+          <div class="acc-icon" style="background:#fef7e0;"><i class="fas fa-keyboard" style="color:#fbbc04;"></i></div>
+          <div class="acc-title">
+            <h3>CCC – Course on Computer Concepts</h3>
+            <div class="acc-meta">
+              <span><i class="fas fa-clock"></i> 2½ Months · 90 Hours</span>
+            </div>
+          </div>
+          <div class="acc-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="acc-body-grid">
+              <div class="acc-col">
+                <h4>Syllabus</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Computer Fundamentals</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Operating System</li>
+                  <li><i class="fas fa-circle"></i> Gujarati &amp; English Typing</li>
+                  <li><i class="fas fa-circle"></i> Accessories &amp; Properties</li>
+                  <li><i class="fas fa-circle"></i> Notepad, WordPad, Paint</li>
+                  <li><i class="fas fa-circle"></i> MS Office Word 2016</li>
+                  <li><i class="fas fa-circle"></i> MS Office Excel 2016</li>
+                  <li><i class="fas fa-circle"></i> MS Office Power Point 2016</li>
+                  <li><i class="fas fa-circle"></i> Introduction to Internet &amp; Data Entry</li>
+                </ul>
+              </div>
+              <div class="acc-col">
+                <h4>Recognition &amp; Benefits</h4>
+                <ul class="syllabus-list">
+                  <li><i class="fas fa-circle"></i> Govt. of India recognized (Gujarat &amp; Central Govt.)</li>
+                  <li><i class="fas fa-circle"></i> Valid for all government recruitment exams</li>
+                  <li><i class="fas fa-circle"></i> Online &amp; Offline Exam Available</li>
+                  <li><i class="fas fa-circle"></i> Online Certificate Verification</li>
+                </ul>
+              </div>
+            </div>
+            <div class="acc-highlights">
+              <span class="highlight-pill green"><i class="fas fa-flag"></i> All India Valid Certificate</span>
+              <span class="highlight-pill"><i class="fas fa-check-circle"></i> Govt. of India Approved</span>
+              <span class="highlight-pill yellow"><i class="fas fa-rupee-sign"></i> Easy Installment Option</span>
+            </div>
+            <div class="acc-cta">
+              <a href="https://wa.me/919924733327?text=I am interested in CCC course. Please share details." target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end container -->
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo.jpg" alt="DCE Logo" class="footer-logo">
+        <span>Dutta Computer Education</span>
+      </div>
+      <p>Center Point Complex, Opp. ST Depo, Nava Bazar, Karjan, Gujarat 391240</p>
+      <div class="footer-links">
+        <a href="tel:09924733327"><i class="fas fa-phone-alt"></i> 099247 33327</a>
+        <a href="https://wa.me/919924733327" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+      <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 1rem;">&copy; <span class="auto-year"></span> Dutta Computer Education. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/919924733327" target="_blank" class="float-wa" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // Auto-update year
+    document.querySelectorAll('.auto-year').forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Accordion — clicking a card expands it; clicking again or another closes it
+    function toggleCard(id) {
+      const card = document.getElementById(id);
+      const body = card.querySelector('.acc-body');
+      const isOpen = card.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.acc-card').forEach(c => {
+        c.classList.remove('open');
+        c.querySelector('.acc-body').style.maxHeight = null;
+      });
+
+      // If was closed → open it
+      if (!isOpen) {
+        card.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        // Smooth scroll into view
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+      }
+    }
+  </script>
+</body>
+</html>
